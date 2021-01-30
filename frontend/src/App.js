@@ -24,6 +24,8 @@ function App() {
   
   const [resultDetail, setResultDetail] = useState({});
 
+  const [alertError, setAlertError] = useState(false);
+
   useEffect(() => {
     fetchCorpusList();
   }, []);
@@ -31,22 +33,19 @@ function App() {
   const handleClose = () => setShowModal(false);
   
   const fetchCorpusList = async () => {
-    const response = await api.get('list');
-    const tableData = response.data;
-    tableData.reverse()
-    setDataTable([ ...tableData ]);
-    setTimeout(() => {
-      setProgressAtributes({
-        value: 0
-      })
-    }, 1000);
-    
-  }
-
-  const getResult = async () => {
-    const response = await api.get(`result-save-xlsx/${resultDetail.file}`);
-
-
+    try {
+      const response = await api.get('list');
+      const tableData = response.data;
+      tableData.reverse()
+      setDataTable([ ...tableData ]);
+      setTimeout(() => {
+        setProgressAtributes({
+          value: 0
+        })
+      }, 1000);
+    } catch (err) {
+      setAlertError(true)
+    }
   }
 
   const loadResultDetail = async (itemResult) => {
@@ -116,7 +115,7 @@ function App() {
     });
 
     for (const file of itemForm.files) {
-      const response = await submitDocCorpus(file, fileCorpusTarget);
+      await submitDocCorpus(file, fileCorpusTarget);
       setProgressAtributes({
         value: parseInt(Math.round(( ++count * 100) / total)) 
       });
@@ -147,6 +146,13 @@ function App() {
 
   return (
     <Container className='p-2'>
+      { 
+        alertError ? (
+          <Alert className='text-center' variant='danger' dismissible onClose={() => setAlertError(false)}>
+            Parece que houve algum erro para se conectar ao servidor :C !!!
+          </Alert>
+        ) : ('') 
+      }
       <Jumbotron>
         <h2>Calcular Frequência de termos de um Corpus</h2>
         <Row className='p-1 my-3'>
@@ -219,7 +225,7 @@ function App() {
                       disabled={disabledFields}
                       multiple
                       required
-                      //accept="image/png, image/jpeg" //mudar Aqui
+                      accept="text/html, text/plain"
                       id="exampleFormControlFile1" 
                       label="Arquivos do Corpus" 
                     />
@@ -270,7 +276,7 @@ function App() {
                     </Table>
                   ) : (
                     <Alert variant='info'>
-                      Nenhum resutado para mostrar ainda :o !!!
+                      Nenhum resultado para mostrar ainda :o !!!
                     </Alert>  
                   ) 
                 }
