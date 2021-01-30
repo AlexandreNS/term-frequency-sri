@@ -8,7 +8,7 @@ const storageTypes = multer.diskStorage({
     cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads"));
   },
   filename: (req, file, cb) => {
-    crypto.randomBytes(2, (err, hash) => {
+    crypto.randomBytes(8, (err, hash) => {
       if (err) cb(err);
       file.key = `${hash.toString("hex")}-${slugify(file.originalname)}`;
       
