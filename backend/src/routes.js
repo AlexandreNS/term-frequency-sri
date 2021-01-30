@@ -8,8 +8,8 @@ const path = require('path')
 const multerConfig = require("./config/multer");
 const termFrequency = require("./utils/term-frequency");
 
-const resultsPath = path.resolve(__dirname, "resourses", "data", "results");
-const listPath = path.resolve(__dirname, "resourses", "data");
+const resultsPath = path.resolve(__dirname, "resources", "data", "results");
+const listPath = path.resolve(__dirname, "resources", "data");
 const docsPath = path.resolve(__dirname, "..", "tmp", "uploads");
 
 const EXTENSION_FILE = ['html', 'txt'];

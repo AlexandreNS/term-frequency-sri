@@ -5,5 +5,5 @@ node_modules
 tmp/uploads/*
 !tmp/uploads/.gitkeep
 
-resources/data/results/*
-!resources/data/results/.gitkeep
+src/resources/data/results/*
+!src/resources/data/results/.gitkeep
