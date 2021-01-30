@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { decode: decodeHtml } = require('html-entities')
-const stopwords = require('./../resourses/stopwords')
+const stopwords = require('./../resources/stopwords')
 const natural = require('natural');
 
 natural.PorterStemmerPt.attach();

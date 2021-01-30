@@ -1,7 +1,7 @@
 const routes = require("express").Router();
 const fs = require('fs');
 const xlsx = require('json-as-xlsx')
-const List = require('./resourses/data/list.json') || [];
+const List = require('./resources/data/list.json') || [];
 const Utils = require('./utils/utils')
 const multer = require("multer");
 const path = require('path')
