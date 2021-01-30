@@ -24,7 +24,8 @@ routes.get("/result-save-xlsx/:filename", async (req, res) => {
     const searchFile = List.filter(({ file }) => file === req.params.filename);
 
     if (searchFile.length > 0) {
-      const resultData = require(`${resultsPath}/${req.params.filename}`);
+      let resultData = fs.readFileSync(`${resultsPath}/${req.params.filename}`, "utf8");
+      resultData = JSON.parse(resultData);
 
       let corpusResult = []
       for (let key in resultData.corpus) {
@@ -78,7 +79,8 @@ routes.get("/result/:filename", async (req, res) => {
     const searchFile = List.filter(({ file }) => file === req.params.filename);
 
     if (searchFile.length > 0) {
-      const resultData = require(`${resultsPath}/${req.params.filename}`);
+      let resultData = fs.readFileSync(`${resultsPath}/${req.params.filename}`, "utf8");
+      resultData = JSON.parse(resultData);
 
       const corpusResult = []
       for (let key in resultData.corpus) {
@@ -140,7 +142,8 @@ routes.post("/save-doc", multer(multerConfig).single("file"), async (req, res) =
     const searchFile = List.filter(({ file }) => file === req.body.filename);
 
     if (searchFile.length > 0) {
-      const resultData = require(`${resultsPath}/${req.body.filename}`);
+      let resultData = fs.readFileSync(`${resultsPath}/${req.body.filename}`, "utf8");
+      resultData = JSON.parse(resultData);
 
       let docData = fs.readFileSync(`${docsPath}/${key}`, 
         (ENCONDE_FILE.includes(req.body.encode)) ? req.body.encode : 'utf8'
