@@ -42,11 +42,11 @@ routes.get("/result-save-xlsx/:filename", async (req, res) => {
         value.index = idx+1
         return value
       });
-      
+
       const columns = [
         { label: 'Index', value: 'index' },
-        { label: 'Termo', value: 'key' },
-        { label: 'Quantidade', value: 'quantidade' }
+        { label: 'Quantidade', value: 'quantidade' },
+        { label: 'Termo', value: 'key' }
       ]
       
       const settings = {
@@ -54,7 +54,7 @@ routes.get("/result-save-xlsx/:filename", async (req, res) => {
         fileName: req.params.filename.replace('.json', '')
       }
       
-      var buffer = xlsx(columns, corpusResult, settings, false)
+      let buffer = xlsx(columns, corpusResult, settings, false)
       res.writeHead(200, {
         'Content-Type': 'application/octet-stream',
         'Content-disposition': `attachment; filename=${settings.fileName}.xlsx`

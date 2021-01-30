@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import api from './services/api';
+import config from './config';
 import { Container, Row, Col, Jumbotron, Card, Form, Button, Alert, Table, ProgressBar, Modal } from 'react-bootstrap';
 
 const initialItemForm = {name: '', encode: 'latin1', mode: 'html', stemming: 'false', files: []};
@@ -289,7 +290,7 @@ function App() {
           <b>Quantidade de termos: </b> { Array.isArray(resultDetail.corpus) ? resultDetail.corpus.length : 0} <br />
         </Modal.Body>
         <Modal.Footer>
-          <a className='btn btn-primary' download href={`http://localhost:3001/result-save-xlsx/${resultDetail.file}`}>
+          <a className='btn btn-primary' download href={`${config.base_url}/result-save-xlsx/${resultDetail.file}`}>
             Salvar Dados
           </a>
           <Button variant="secondary" onClick={handleClose}>
